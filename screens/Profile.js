@@ -15,14 +15,19 @@ import {
 const CompanyProfile = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const images = {
+    'mobilesaid.jpeg': require('../src/img/mobilesaid.jpeg'),
+    'mobileadhit.jpeg': require('../src/img/mobileadhit.jpeg'),
+    'novea.jpg': require('../src/img/novea.jpg'),
+  };
 
   // Data perusahaan (bisa diganti sesuai kebutuhan)
   const companyData = {
     name: 'Novea',
-    logo: '/api/placeholder/200/200',
+    logo: 'novea.jpg',
     description:
       'Novea berasal dari dua kata, "Nova" yang berarti baru, segar, dan penuh energi, serta "Era," yang mencerminkan masa kini dan masa depan yang terus berubah. Gabungan ini menunjukkan aplikasi berita yang menyajikan informasi terkini, relevan, dan inovatif yang mencerminkan perubahan dan perkembangan zaman.',
-    address: 'Jl. Teknologi No. 123, Jakarta Selatan',
+    address: 'Jl. Novea No. 123, Bandung',
     phone: '+62 96 7500 6525',
     email: 'novea@trusted.id',
     Instagram: 'novea.id',
@@ -34,8 +39,8 @@ const CompanyProfile = () => {
       id: 1,
       name: 'Said Aqim Wijhatalillah',
       position: '17223004',
-      image: '/src/img/mobilesaid.jpeg',
-      bio: 'Berpengalaman lebih dari 15 tahun dalam industri teknologi. Memimpin berbagai proyek inovatif dan transformasi digital.',
+      image: 'mobilesaid.jpeg',
+      bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'said.aqm@novea.id',
       Instagram: 'https://www.instagram.com/saiidaqm?igsh=MTZ6ajhqYXVpcWZqeg==',
       expertise: ['Leadership', 'Strategic Planning', 'Digital Transformation'],
@@ -44,20 +49,22 @@ const CompanyProfile = () => {
       id: 2,
       name: 'M Faiz Priyantoro',
       position: '17223028',
-      image: '/api/placeholder/150/150',
-      bio: 'Ahli dalam pengembangan software dan arsitektur sistem. Memiliki background kuat dalam AI dan Machine Learning.',
+      image: '',
+      bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'faiz.priyantoro@novea.id',
-      Instagram: 'https://www.instagram.com/mhmmdfaizp?igsh=MXd3MGcwc28xdzM4aQ==',
+      Instagram:
+        'https://www.instagram.com/mhmmdfaizp?igsh=MXd3MGcwc28xdzM4aQ==',
       expertise: ['AI/ML', 'System Architecture', 'Cloud Computing'],
     },
     {
       id: 3,
       name: 'Adhitya Rahadiansyah',
       position: '17223010',
-      image: '/api/placeholder/150/150',
-      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
+      image: 'mobileadhit.jpeg',
+      bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'adhitya.rahadiansyah@novea.id',
-      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      Instagram:
+        'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
       expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
     {
@@ -65,19 +72,20 @@ const CompanyProfile = () => {
       name: 'Lutfhi Muayyad Billah',
       position: '17223011',
       image: '/api/placeholder/150/150',
-      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
-      email: 'adhitya.rahadiansyah@novea.id',
-      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
+      email: 'lutfhi.mb@novea.id',
+      Instagram: 'https://www.instagram.com/upa4y?igsh=MTJ6NDEwcHY4Y2g1eg==',
       expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
     {
       id: 5,
-      name: 'Mochammad Taufik Faturrohman',
+      name: 'M Taufik Faturrohman',
       position: '17223017',
-      image: '/api/placeholder/150/150',
-      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
+      image: 'novea.jpg',
+      bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'adhitya.rahadiansyah@novea.id',
-      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      Instagram:
+        'https://www.instagram.com/faturrahman_moch?igsh=a2phdHg5dXJlc3Bo',
       expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
   ];
@@ -98,7 +106,7 @@ const CompanyProfile = () => {
             </TouchableOpacity>
 
             <Image
-              source={{uri: member.image}}
+              source={images[member.image]}
               style={styles.modalImage}
               resizeMode="cover"
             />
@@ -171,7 +179,7 @@ const CompanyProfile = () => {
             },
           ]}>
           <Image
-            source={{uri: member.image}}
+            source={images[member.image]}
             style={styles.memberImage}
             resizeMode="cover"
           />
@@ -190,7 +198,7 @@ const CompanyProfile = () => {
       {/* Company Header Section */}
       <View style={styles.headerContainer}>
         <Image
-          source={{uri: companyData.logo}}
+          source={images[companyData.logo]}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -237,6 +245,10 @@ const CompanyProfile = () => {
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    fontFamily: 'Poppins-Regular', // Sesuaikan dengan nama font yang kamu gunakan
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -247,8 +259,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 300,
+    height: 300,
     marginBottom: 10,
   },
   companyName: {
