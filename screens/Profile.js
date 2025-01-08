@@ -1,223 +1,427 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   ScrollView,
+  Dimensions,
   TouchableOpacity,
+  Animated,
   Modal,
+  Linking,
 } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 
-export default function ProfileScreen() {
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [selectedMember, setSelectedMember] = React.useState(null);
+const CompanyProfile = () => {
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
+  // Data perusahaan (bisa diganti sesuai kebutuhan)
+  const companyData = {
+    name: 'Novea',
+    logo: '/api/placeholder/200/200',
+    description:
+      'Novea berasal dari dua kata, "Nova" yang berarti baru, segar, dan penuh energi, serta "Era," yang mencerminkan masa kini dan masa depan yang terus berubah. Gabungan ini menunjukkan aplikasi berita yang menyajikan informasi terkini, relevan, dan inovatif yang mencerminkan perubahan dan perkembangan zaman.',
+    address: 'Jl. Teknologi No. 123, Jakarta Selatan',
+    phone: '+62 96 7500 6525',
+    email: 'novea@trusted.id',
+    Instagram: 'novea.id',
+  };
+
+  // Data anggota tim yang diperluas
   const teamMembers = [
     {
-      name: 'SAID AQIM WIJHATALILLAH',
-      id: '17223004',
-      image: './assets/img/mobilesaid.jpeg',
+      id: 1,
+      name: 'Said Aqim Wijhatalillah',
+      position: '17223004',
+      image: '/src/img/mobilesaid.jpeg',
+      bio: 'Berpengalaman lebih dari 15 tahun dalam industri teknologi. Memimpin berbagai proyek inovatif dan transformasi digital.',
+      email: 'said.aqm@novea.id',
+      Instagram: 'https://www.instagram.com/saiidaqm?igsh=MTZ6ajhqYXVpcWZqeg==',
+      expertise: ['Leadership', 'Strategic Planning', 'Digital Transformation'],
     },
     {
-      name: 'MUHAMMAD FAIZ PRIYANTORO',
-      id: '17223028',
-      image: 'https://via.placeholder.com/100',
+      id: 2,
+      name: 'M Faiz Priyantoro',
+      position: '17223028',
+      image: '/api/placeholder/150/150',
+      bio: 'Ahli dalam pengembangan software dan arsitektur sistem. Memiliki background kuat dalam AI dan Machine Learning.',
+      email: 'faiz.priyantoro@novea.id',
+      Instagram: 'https://www.instagram.com/mhmmdfaizp?igsh=MXd3MGcwc28xdzM4aQ==',
+      expertise: ['AI/ML', 'System Architecture', 'Cloud Computing'],
     },
     {
-      name: 'ADHITYA RAHADIANSYAH',
-      id: '17221014',
-      image: './assets/img/mobileadhit.jpeg',
+      id: 3,
+      name: 'Adhitya Rahadiansyah',
+      position: '17223010',
+      image: '/api/placeholder/150/150',
+      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
+      email: 'adhitya.rahadiansyah@novea.id',
+      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
     {
-      name: 'LUTFHI MUAYYAD BILLAH',
-      id: '17223011',
-      image: 'https://via.placeholder.com/100',
+      id: 4,
+      name: 'Lutfhi Muayyad Billah',
+      position: '17223011',
+      image: '/api/placeholder/150/150',
+      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
+      email: 'adhitya.rahadiansyah@novea.id',
+      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
     {
-      name: 'MOCHAMMAD TAUFIK FATURROHMAN',
-      id: '17223017',
-      image: 'https://via.placeholder.com/100',
+      id: 5,
+      name: 'Mochammad Taufik Faturrohman',
+      position: '17223017',
+      image: '/api/placeholder/150/150',
+      bio: 'Spesialis dalam product development dan user experience. Fokus pada menciptakan produk yang user-friendly.',
+      email: 'adhitya.rahadiansyah@novea.id',
+      Instagram: 'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+      expertise: ['Product Strategy', 'UX Design', 'Agile Management'],
     },
   ];
 
-  const openModal = member => {
-    setSelectedMember(member);
-    setModalVisible(true);
+  const MemberModal = ({member, visible, onClose}) => {
+    if (!member) return null;
+
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+        onRequestClose={onClose}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <Text style={styles.closeButtonText}>×</Text>
+            </TouchableOpacity>
+
+            <Image
+              source={{uri: member.image}}
+              style={styles.modalImage}
+              resizeMode="cover"
+            />
+
+            <Text style={styles.modalName}>{member.name}</Text>
+            <Text style={styles.modalPosition}>{member.position}</Text>
+
+            <Text style={styles.modalBioTitle}>Tentang</Text>
+            <Text style={styles.modalBio}>{member.bio}</Text>
+
+            <Text style={styles.modalExpertiseTitle}>Keahlian</Text>
+            <View style={styles.expertiseContainer}>
+              {member.expertise.map((skill, index) => (
+                <View key={index} style={styles.expertiseTag}>
+                  <Text style={styles.expertiseText}>{skill}</Text>
+                </View>
+              ))}
+            </View>
+
+            <View style={styles.contactButtons}>
+              <TouchableOpacity
+                style={styles.contactButton}
+                onPress={() => Linking.openURL(`mailto:${member.email}`)}>
+                <Text style={styles.contactButtonText}>Email</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.contactButton, styles.InstagramButton]}
+                onPress={() => Linking.openURL(member.Instagram)}>
+                <Text style={styles.contactButtonText}>Instagram</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
-    setSelectedMember(null);
+  const TeamMemberCard = ({member}) => {
+    const scaleAnim = new Animated.Value(1);
+
+    const handlePressIn = () => {
+      Animated.spring(scaleAnim, {
+        toValue: 0.95,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    const handlePressOut = () => {
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    return (
+      <TouchableOpacity
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={() => {
+          setSelectedMember(member);
+          setModalVisible(true);
+        }}
+        activeOpacity={0.9}>
+        <Animated.View
+          style={[
+            styles.memberCard,
+            {
+              transform: [{scale: scaleAnim}],
+            },
+          ]}>
+          <Image
+            source={{uri: member.image}}
+            style={styles.memberImage}
+            resizeMode="cover"
+          />
+          <View style={styles.memberInfo}>
+            <Text style={styles.memberName}>{member.name}</Text>
+            <Text style={styles.memberPosition}>{member.position}</Text>
+            <Text style={styles.memberPreview}>Tap untuk detail</Text>
+          </View>
+        </Animated.View>
+      </TouchableOpacity>
+    );
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* Informasi Perusahaan */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Tentang Novea</Text>
-        <Text style={styles.text}>
-          Novea berasal dari dua kata, "Nova" yang berarti baru, segar, dan
-          penuh energi, serta "Era" yang mencerminkan masa kini dan masa depan
-          yang terus berubah. Novea merupakan aplikasi berita yang menyajikan
-          informasi terkini, relevan, dan inovatif yang mencerminkan perubahan
-          dan perkembangan zaman.
+      {/* Company Header Section */}
+      <View style={styles.headerContainer}>
+        <Image
+          source={{uri: companyData.logo}}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.companyName}>{companyData.name}</Text>
+      </View>
+
+      {/* Company Description Section */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Tentang Kami</Text>
+        <Text style={styles.description}>{companyData.description}</Text>
+      </View>
+
+      {/* Company Contact Section */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Kontak</Text>
+        <Text style={styles.contactInfo}>Alamat: {companyData.address}</Text>
+        <Text style={styles.contactInfo}>Telepon: {companyData.phone}</Text>
+        <Text style={styles.contactInfo}>Email: {companyData.email}</Text>
+        <Text style={styles.contactInfo}>
+          Instagram: {companyData.Instagram}
         </Text>
       </View>
 
-      {/* Struktur Organisasi */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Our Team</Text>
-
-        {teamMembers.map((member, index) => (
-          <Animatable.View
-            key={index}
-            animation="fadeInUp"
-            duration={800}
-            delay={index * 200}
-            style={styles.card}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.touchable}
-              onPress={() => openModal(member)}>
-              <Image source={{uri: member.image}} style={styles.cardImage} />
-              <Text style={styles.cardTitle}>{member.name}</Text>
-              <Text style={styles.cardText}>{member.id}</Text>
-            </TouchableOpacity>
-          </Animatable.View>
-        ))}
+      {/* Team Members Section */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Tim Kami</Text>
+        <View style={styles.teamContainer}>
+          {teamMembers.map(member => (
+            <TeamMemberCard key={member.id} member={member} />
+          ))}
+        </View>
       </View>
 
-      {/* Modal untuk Detail Anggota Tim */}
-      {selectedMember && (
-        <Modal
-          visible={modalVisible}
-          animationType="slide"
-          transparent={true}
-          onRequestClose={closeModal}>
-          <View style={styles.modalBackdrop}>
-            <View style={styles.modalContainer}>
-              <Image
-                source={{uri: selectedMember.image}}
-                style={styles.modalImage}
-              />
-              <Text style={styles.modalTitle}>{selectedMember.name}</Text>
-              <Text style={styles.modalText}>NIM: {selectedMember.id}</Text>
-              <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-                <Text style={styles.modalButtonText}>Tutup</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      )}
+      <MemberModal
+        member={selectedMember}
+        visible={modalVisible}
+        onClose={() => {
+          setModalVisible(false);
+          setSelectedMember(null);
+        }}
+      />
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
-    padding: 16, // Padding konsisten di seluruh container
+    backgroundColor: '#fff',
   },
-  section: {
-    marginBottom: 24,
-    padding: 20, // Padding lebih besar untuk kesan lebih bersih
-    backgroundColor: '#fff', // Background putih untuk setiap section
-    borderRadius: 8, // Sudut yang membulat pada setiap section
-    elevation: 4, // Shadow pada Android
-    shadowColor: '#000', // Shadow pada iOS
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+  headerContainer: {
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8f8f8',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 10,
+  },
+  companyName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  sectionContainer: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   sectionTitle: {
-    fontSize: 20, // Ukuran font lebih besar untuk judul section
-    fontWeight: '600', // Berat font lebih ringan untuk kesan modern
-    marginBottom: 12, // Spacing lebih besar untuk judul
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
     color: '#333',
   },
-  text: {
+  contactInfo: {
     fontSize: 16,
-    color: '#555',
-    lineHeight: 24, // Jarak antar baris lebih baik untuk keterbacaan
-    textAlign: 'justify', // Penataan teks untuk keterbacaan yang lebih baik
+    marginBottom: 8,
+    color: '#444',
   },
-  card: {
-    alignItems: 'center',
-    backgroundColor: '#fffe',
-    borderRadius: 10,
-    marginBottom: 16,
-    elevation: 4,
+  teamContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  memberCard: {
+    width: Dimensions.get('window').width / 2 - 30,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    elevation: 5,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    overflow: 'hidden',
   },
-  touchable: {
-    alignItems: 'center',
-    padding: 20,
+  memberImage: {
+    width: '100%',
+    height: 160,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
-  cardImage: {
-    width: 100, // Ukuran gambar disesuaikan agar lebih pas
-    height: 100,
-    borderRadius: 50, // Gambar berbentuk bulat
-    marginBottom: 12,
-    borderWidth: 2, // Tambahkan border untuk kesan lebih rapi
-    borderColor: '#ddd', // Warna border lebih terang
+  memberInfo: {
+    padding: 12,
+    backgroundColor: '#fff',
   },
-  cardTitle: {
-    fontSize: 16, // Ukuran font disesuaikan
-    fontWeight: '500',
+  memberName: {
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#333',
-    textAlign: 'center',
   },
-  cardText: {
-    fontSize: 14, // Ukuran font sedikit lebih kecil
-    color: '#777', // Warna font lebih lembut untuk keterbacaan
-    textAlign: 'center',
+  memberPosition: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 2,
+  },
+  memberPreview: {
+    fontSize: 12,
+    color: '#888',
     marginTop: 4,
+    fontStyle: 'italic',
   },
-  modalBackdrop: {
+  modalOverlay: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Latar belakang gelap untuk modal
   },
-  modalContainer: {
-    width: 300,
-    padding: 20,
+  modalContent: {
+    width: '90%',
     backgroundColor: '#fff',
-    borderRadius: 8,
+    borderRadius: 20,
+    padding: 20,
     alignItems: 'center',
-    elevation: 5,
+    maxHeight: '80%',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 15,
+    top: 15,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 28,
+    color: '#333',
+    fontWeight: 'bold',
   },
   modalImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginBottom: 12,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 15,
   },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+  modalName: {
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
+    marginBottom: 5,
   },
-  modalText: {
+  modalPosition: {
+    fontSize: 18,
+    color: '#666',
+    marginBottom: 15,
+  },
+  modalBioTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    alignSelf: 'flex-start',
+    marginBottom: 5,
+  },
+  modalBio: {
     fontSize: 16,
-    color: '#555',
-    marginBottom: 12,
+    color: '#444',
+    lineHeight: 24,
+    marginBottom: 15,
+    textAlign: 'left',
   },
-  modalButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
+  modalExpertiseTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+  },
+  expertiseContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    width: '100%',
+    marginBottom: 20,
+  },
+  expertiseTag: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 15,
+    margin: 4,
+  },
+  expertiseText: {
+    fontSize: 14,
+    color: '#444',
+  },
+  contactButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginTop: 10,
+  },
+  contactButton: {
+    backgroundColor: '#007AFF',
     paddingHorizontal: 20,
-    borderRadius: 5,
+    paddingVertical: 10,
+    borderRadius: 25,
+    minWidth: 120,
+    alignItems: 'center',
   },
-  modalButtonText: {
+  InstagramButton: {
+    backgroundColor: '#0077B5',
+  },
+  contactButtonText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
+export default CompanyProfile;
