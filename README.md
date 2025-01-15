@@ -1,4 +1,12 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Kelompok Aplikasi Novea TI.5A :
+1. M Faiz Priyantoro - 17223028
+2. Said Aqim Wijhatalillah - 17223004
+3. Adhitya Rahadiansyah - 17223010
+4. Lutfhi Muayyad Billah - 17223011
+5. M Taufik Faturrohman - 17223017
+
+# Deskripsi Aplikasi Novea :
+'Novea berasal dari dua kata, "Nova" yang berarti baru, segar, dan penuh energi, serta "Era," yang mencerminkan masa kini dan masa depan yang terus berubah. Gabungan ini menunjukkan aplikasi berita yang menyajikan informasi terkini, relevan, dan inovatif yang mencerminkan perubahan dan perkembangan zaman.',
 
 # Getting Started
 
