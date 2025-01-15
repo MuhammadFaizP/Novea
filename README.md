@@ -1,7 +1,7 @@
 # Kelompok Aplikasi Novea TI.5A :
 1. M Faiz Priyantoro - 17223028
 2. Said Aqim Wijhatalillah - 17223004
-3. Adhitya Rahadiansyah - 17223010
+3. Adhitya Rahadiansyah - 17221014
 4. Lutfhi Muayyad Billah - 17223011
 5. M Taufik Faturrohman - 17223017
 
