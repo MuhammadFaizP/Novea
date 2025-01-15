@@ -16,7 +16,7 @@ import {
 const CompanyProfile = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const theme = useTheme();
+
   const images = {
     'mobilesaid.jpeg': require('../src/img/mobilesaid.jpeg'),
     'mobileadhit.jpeg': require('../src/img/mobileadhit.jpeg'),
@@ -24,10 +24,9 @@ const CompanyProfile = () => {
     'upay.jpg': require('../src/img/upay.jpg'),
     'taufik.jpg': require('../src/img/taufik.jpg'),
     'faizz.jpg': require('../src/img/faizz.jpg'),
-
   };
 
-  // Data perusahaan (bisa diganti sesuai kebutuhan)
+
   const companyData = {
     name: 'Novea',
     logo: 'novea.jpg',
@@ -39,7 +38,7 @@ const CompanyProfile = () => {
     Instagram: 'novea.id',
   };
 
-  // Data anggota tim yang diperluas
+
   const teamMembers = [
     {
       id: 1,
@@ -49,17 +48,20 @@ const CompanyProfile = () => {
       bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'said.aqm@novea.id',
       Instagram: 'https://www.instagram.com/saiidaqm?igsh=MTZ6ajhqYXVpcWZqeg==',
+
       expertise: ['AI/ML', 'Cloud Computing'],
     },
     {
       id: 2,
       name: 'M Faiz Priyantoro',
       position: '17223028',
+
       image: 'faizz.jpg',
       bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'faiz.priyantoro@novea.id',
       Instagram:
         'https://www.instagram.com/mhmmdfaizp?igsh=MXd3MGcwc28xdzM4aQ==',
+
       expertise: ['AI/ML', 'Cloud Computing'],
     },
     {
@@ -71,12 +73,14 @@ const CompanyProfile = () => {
       email: 'adhitya.rahadiansyah@novea.id',
       Instagram:
         'https://www.instagram.com/adhitya_rh?igsh=MW5uODd6Z2wzeXBmZw==',
+
       expertise: ['Product Strategy', 'UX Design'],
     },
     {
       id: 4,
       name: 'Lutfhi Muayyad Billah',
       position: '17223011',
+
       image: 'upay.jpg',
       bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'lutfhi.mb@novea.id',
@@ -87,11 +91,13 @@ const CompanyProfile = () => {
       id: 5,
       name: 'M Taufik Faturrohman',
       position: '17223017',
+
       image: 'taufik.jpg',
       bio: 'Seorang Mahasiswa semester 5 di Universitas Adhirajasa Reswara Sanjaya, jurusan Teknik Informatika, Fakultas Teknologi Informasi.',
       email: 'adhitya.rahadiansyah@novea.id',
       Instagram:
         'https://www.instagram.com/faturrahman_moch?igsh=a2phdHg5dXJlc3Bo',
+
       expertise: ['Product Strategy', 'UX Design'],
     },
   ];
@@ -253,7 +259,7 @@ const CompanyProfile = () => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
-    fontFamily: 'Poppins-Regular', // Sesuaikan dengan nama font yang kamu gunakan
+    fontFamily: 'Poppins-Regular', 
   },
   container: {
     flex: 1,
@@ -425,6 +431,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   contactButton: {
+
     backgroundColor: '#0056b3',
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -433,6 +440,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   InstagramButton: {
+
     backgroundColor: '#0056b3',
   },
   contactButtonText: {

@@ -1,4 +1,3 @@
-// NewsDetail.js
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Image, StyleSheet, Share } from 'react-native';
 import { Text, Button, Title, Paragraph } from 'react-native-paper';

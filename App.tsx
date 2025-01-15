@@ -3,7 +3,7 @@ import { BottomNavigation, Provider as PaperProvider } from "react-native-paper"
 import LottieView from "lottie-react-native";
 import MemberHome from "./screens/Home";
 import Profile from "./screens/Profile";
-import Settings from "./screens/Detail";
+import Detail from "./screens/Detail";
 import theme from "./screens/Theme";
 
 type RenderIconProps = {
@@ -20,13 +20,13 @@ const App = () => {
   const [routes] = useState([
     { key: "home", title: "Home", icon: require("./screens/lottie/home.json") },
     { key: "profile", title: "Profile", icon: require("./screens/lottie/profile.json") },
-    { key: "settings", title: "Detail", icon: require("./screens/lottie/detail.json") },
+    { key: "detail", title: "Detail", icon: require("./screens/lottie/detail.json") },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     home: MemberHome,
     profile: Profile,
-    settings: Settings,
+    detail: Detail,
   });
 
   const renderIcon = ({ route, focused }: RenderIconProps) => (

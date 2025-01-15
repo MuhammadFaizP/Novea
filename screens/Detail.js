@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import { Button, Text, Card, Title, Paragraph } from 'react-native-paper';
 
-const HomeScreen = ({ navigation }) => {
+const Detail = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   source: { fontStyle: 'italic', color: 'gray' },
 });
 
-export default HomeScreen;
+export default Detail;
