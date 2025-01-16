@@ -42,3 +42,14 @@ Aplikasi berita online yang dibangun menggunakan React Native. Aplikasi ini memu
 1. Mengambil berita berdasarkan kategori yang dipilih (misalnya, teknologi, olahraga, kesehatan).
 2. Menampilkan daftar artikel yang diambil berdasarkan kategori yang dipilih.
 3. Menggunakan FlatList untuk menampilkan daftar artikel dengan efisien.
+
+---
+
+### Jurusan
+**Teknik Informatika**  
+
+### Fakultas
+**Fakultas Teknologi Informasi**  
+
+### Universitas
+**Universitas Adhirajasa Reswara Sanjaya**
