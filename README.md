@@ -34,7 +34,7 @@ Aplikasi berita online yang dibangun menggunakan React Native. Aplikasi ini memu
 ![Profile.js](src/img/Profile.jpg)
 1. Menampilkan informasi aplikasi (nama, deskripsi, kontak, logo).
 2. Daftar anggota tim dengan kartu profil masing-masing.
-3. Modal popup interaktif untuk menampilkan detail anggota tim. tambahkan poin poin tersebut dalam bentuk kalimat
+3. Modal popup interaktif untuk menampilkan detail anggota tim.
 
 ***
 
